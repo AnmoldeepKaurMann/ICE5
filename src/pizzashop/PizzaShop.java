@@ -5,6 +5,8 @@
  */
 package pizzashop;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -13,15 +15,21 @@ import java.util.Scanner;
  * Note that the following source was used as a reference in 
  * creating this example:
  * Freeman, E.Freeman, E., Sierra, K., & Bates, B. (2004). Head First Design patterns. Sebastopol, CA: O'Reilly.
- * @author dancye, 2019
+ * @author Anmoldeep Kaur, 2024
  */
-public class PizzaShop {
+//class PizzaShop {
+//    private List<PizzaStatusListener> listeners = new ArrayList<>();
+//
+//    public void registerListener(PizzaStatusListener listener) {
+//        listeners.add(listener);
+    
+  
 
-   public static PizzaCutter pizzaCutter = new PizzaCutter();//we only ever want one 
-   // of these. The pizza shop takes consistency very seriously
-   //and all pizzas must be cut by the same cutter.
-    public static void main(String[] args) 
-    {
+public class PizzaShop {
+    private static final PizzaCutter pizzaCutter = new PizzaCutter();
+    private static final PizzaStatusListener customerListener = new CustomerPizzaStatusListener();
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to the pizza shop");
         System.out.println("What kind of pizza do you want?");
@@ -29,19 +37,15 @@ public class PizzaShop {
         String type = sc.nextLine();
         PizzaFactory pf = new PizzaFactory();
         Pizza pizza = pf.createPizza(type);
+        pizza.registerListener(customerListener); // Register customer as a listener
         System.out.println("how many slices would you like?");
         int numSlices = sc.nextInt();
         pizzaCutter.numSlices = numSlices;
-        if (pizza!=null)
-        {
+        if (pizza != null) {
             System.out.println("Great job, here is your pizza in " + numSlices + " slices");
-            
-        }
-        else
-        {
+            pizza.notifyListeners(); // Notify observers when pizza is ready
+        } else {
             System.out.println("Enter a valid pizza type so we can cut it next time!");
         }
-        
-    }//end main
-    
+    }
 }

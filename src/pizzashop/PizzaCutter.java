@@ -14,13 +14,16 @@ package pizzashop;
  * Note that the following source was used as a reference in 
  * creating this example:
  * Freeman, E.Freeman, E., Sierra, K., & Bates, B. (2004). Head First Design patterns. Sebastopol, CA: O'Reilly.
- * @author dancye
+ * @author Anmoldeep Kaur, 2024
  */
-public class PizzaCutter 
-{
-    public int numSlices = 0;// how many pieces to cut the pizza into
-    public PizzaCutter()
-    {
-        //intentionally left blank
+
+public class PizzaCutter {
+    public int numSlices = 0;
+
+    public PizzaCutter() {
+    }
+
+    public void cutPizza(int numSlices) {
+        System.out.println("Pizza cut into " + numSlices + " slices.");
     }
 }
